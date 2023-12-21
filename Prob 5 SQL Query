@@ -1,0 +1,6 @@
+Select token_bought_symbol as Token ,sum(amount_usd) as USD
+from
+dex.trades
+where token_bought_symbol in ('GMX','GRAIL','MCB','RDNT','PENDLE','FRAX','GAMMA','DPX',
+'LODE','PYTH','JONES','GAL')
+group by token_bought_symbol;
