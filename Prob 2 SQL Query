@@ -1,0 +1,5 @@
+select DESTINATION_CHAIN,  Sum(AMOUNT_USD) as USD
+
+From ethereum.defi.ez_bridge_activity
+where DESTINATION_CHAIN in ('optimism', 'arbitrum one')
+Group by DESTINATION_CHAIN;
