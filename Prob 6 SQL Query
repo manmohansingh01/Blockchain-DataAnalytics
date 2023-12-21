@@ -1,0 +1,7 @@
+select count(distinct tx_from) as users , token_bought_symbol, WEEK(block_date) AS week_number
+from
+dex.trades
+where token_bought_symbol in ('GMX','GRAIL','MCB','RDNT','PENDLE','FRAX','GAMMA','DPX',
+'LODE','PYTH','JONES','GAL') AND block_date between TIMESTAMP '2023-01-01' AND TIMESTAMP '2023-12-19'
+group by token_bought_symbol, WEEK(block_date)
+order by users;
