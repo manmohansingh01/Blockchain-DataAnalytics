@@ -1,0 +1,10 @@
+Select cast(BLOCK_TIMESTAMP as Date) as T_date,
+sum(amount)* 294.281006 as GAS_Per_Day
+from
+ethereum.core.ez_eth_transfers
+Where BLOCK_TIMESTAMP >= Current_DATE - INTERVAL '1 week'
+GROUP BY T_date
+Order By T_date
+;
+
+
