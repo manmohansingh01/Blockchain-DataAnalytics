@@ -1,0 +1,26 @@
+SELECT
+    PLATFORM,
+    CASE EXTRACT(MONTH FROM CAST(block_timestamp AS DATE)) 
+        WHEN 1 THEN 'Jan'
+        WHEN 2 THEN 'Feb'
+        WHEN 3 THEN 'Mar'
+        WHEN 4 THEN 'Apr'
+        WHEN 5 THEN 'May'
+        WHEN 6 THEN 'Jun'
+        WHEN 7 THEN 'Jul'
+        WHEN 8 THEN 'Aug'
+        WHEN 9 THEN 'Sep'
+        WHEN 10 THEN 'Oct'
+        WHEN 11 THEN 'Nov'
+        WHEN 12 THEN 'Dec'
+    END AS MONTH,
+    SUM(eth_amount_usd) AS USD
+FROM
+    ethereum.defi.ez_liquid_staking_deposits
+WHERE
+    (CAST(block_timestamp AS DATE) BETWEEN '2023-01-01' AND '2023-12-17')
+    AND (platform IN ('swell', 'stader', 'lido', 'rocketpool', 'stakewise'))
+GROUP BY
+    PLATFORM, EXTRACT(MONTH FROM CAST(block_timestamp AS DATE));
+ORDER BY
+    EXTRACT(MONTH FROM CAST(block_timestamp AS DATE));
