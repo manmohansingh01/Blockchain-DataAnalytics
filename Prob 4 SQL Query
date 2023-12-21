@@ -1,0 +1,16 @@
+WITH ranked_prices AS (
+    SELECT
+        minute,
+        price,
+        ROW_NUMBER() OVER (PARTITION BY DATE(minute) ORDER BY minute DESC) AS row_num
+    FROM
+        prices.usd
+         where symbol = 'BONK'
+)
+SELECT
+    DATE(minute) AS date,
+    LAST_VALUE(price) OVER (PARTITION BY DATE(minute)) AS closing_price
+FROM
+    ranked_prices
+WHERE
+    row_num = 1;
